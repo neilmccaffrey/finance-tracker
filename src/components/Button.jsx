@@ -1,8 +1,11 @@
-const Button = ({ onClick, children }) => {
+const Button = ({ onClick, children, isDisabled }) => {
   return (
     <button
-      onClick={onClick}
-      className={`px-4 py-2 rounded primary shadow-md hover:bg-blue-300`}
+      onClick={!isDisabled ? onClick : undefined}
+      className={`px-4 py-2 rounded primary shadow-md 
+        hover:bg-blue-300 
+        ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      disabled={isDisabled}
     >
       {children}
     </button>
