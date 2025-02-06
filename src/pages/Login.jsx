@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { registerUser } from '../api/auth';
+import { registerUser, loginUser } from '../api/auth';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -11,6 +12,7 @@ const Login = () => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
     if (!username || !password) {
@@ -27,6 +29,21 @@ const Login = () => {
         toast.error('User already exists! Try a different username.');
       } else {
         toast.error(result.message || 'Registration failed');
+      }
+    } catch (error) {
+      toast.error('Something went wrong!');
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const result = await loginUser(username, password);
+
+      if (result.message === 'Login successful') {
+        toast.success('You are now logged in!');
+        navigate('/'); //if login is successful redirect user to homepage
+      } else {
+        toast.error(result.message);
       }
     } catch (error) {
       toast.error('Something went wrong!');
@@ -56,7 +73,9 @@ const Login = () => {
             className="p-3 w-96 rounded shadow-md mb-8"
           />
           <div className="flex gap-x-4">
-            <Button isDisabled={!username || !password}>Login</Button>
+            <Button onClick={handleLogin} isDisabled={!username || !password}>
+              Login
+            </Button>
             <Button onClick={handleRegister} isDisabled={isDisabled}>
               {isDisabled ? 'Registered' : 'Register'}
             </Button>
