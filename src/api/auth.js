@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/users'; // Adjust for production
+const API_URL = 'http://localhost:5151/api/users'; // Adjust for production
 
 export const registerUser = async (username, password) => {
   const response = await fetch(`${API_URL}/register`, {
