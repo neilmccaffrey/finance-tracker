@@ -13,7 +13,10 @@ const Login = () => {
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
 
   const handleRegister = async () => {
-    if (!username || !password) return;
+    if (!username || !password) {
+      toast.error('Must enter a username and password');
+      return;
+    }
     try {
       const result = await registerUser(username, password);
 
@@ -52,9 +55,12 @@ const Login = () => {
             placeholder="Password"
             className="p-3 w-96 rounded shadow-md mb-8"
           />
-          <Button onClick={handleRegister} isDisabled={isDisabled}>
-            {isDisabled ? 'Registered' : 'Register'}
-          </Button>
+          <div className="flex gap-x-4">
+            <Button isDisabled={!username || !password}>Login</Button>
+            <Button onClick={handleRegister} isDisabled={isDisabled}>
+              {isDisabled ? 'Registered' : 'Register'}
+            </Button>
+          </div>
         </div>
       </div>
     </>
