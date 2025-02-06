@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <main className="pt-16 mx-auto p-4">
+      <main className="pt-20 mx-auto p-4">
         <h1>Kamehameha!</h1>
       </main>
     </>
