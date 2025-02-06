@@ -42,6 +42,7 @@ const Login = () => {
       if (result.message === 'Login successful') {
         toast.success('You are now logged in!');
         localStorage.setItem('token', result.token); //store JWT token
+        localStorage.setItem('showLoginToast', 'true'); //Set a flag for login toast notification on home page
         navigate('/'); //if login is successful redirect user to homepage
       } else {
         toast.error(result.message);
