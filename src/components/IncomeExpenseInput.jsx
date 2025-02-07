@@ -1,14 +1,6 @@
 import Button from './Button';
 
-const IncomeExpenseInput = ({
-  onClick,
-  setName,
-  setAmount,
-  setType,
-  name,
-  amount,
-  type,
-}) => {
+const IncomeExpenseInput = ({ onClick, setName, setAmount, name, amount }) => {
   const handleAmountChange = (e) => {
     let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
     if (value) {
@@ -33,7 +25,6 @@ const IncomeExpenseInput = ({
       />
       <Button
         onClick={() => {
-          setType('Expense');
           onClick();
         }}
         variant="small"

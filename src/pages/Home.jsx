@@ -9,7 +9,6 @@ import { jwtDecode } from 'jwt-decode';
 const Home = () => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
-  const [type, setType] = useState(''); // This will be 'expense' or 'income'
   const [userId, setUserId] = useState();
 
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
@@ -33,6 +32,7 @@ const Home = () => {
   }, []);
 
   const handleAddExpense = () => {
+    const type = 'Expense';
     if (userId) {
       addTransaction(name, amount, type, userId);
     }
@@ -52,10 +52,8 @@ const Home = () => {
             onClick={handleAddExpense}
             setName={setName}
             setAmount={setAmount}
-            setType={setType}
             name={name}
             amount={amount}
-            type={type}
           />
         </div>
       </main>
