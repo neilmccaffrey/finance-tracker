@@ -1,10 +1,14 @@
-import { useState } from 'react';
 import Button from './Button';
 
-const IncomeExpenseInput = ({ onClick }) => {
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState('');
-
+const IncomeExpenseInput = ({
+  onClick,
+  setName,
+  setAmount,
+  setType,
+  name,
+  amount,
+  type,
+}) => {
   const handleAmountChange = (e) => {
     let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
     if (value) {
@@ -27,7 +31,13 @@ const IncomeExpenseInput = ({ onClick }) => {
         placeholder="$0.00"
         className="pl-2 w-16 dark:bg-gray-300 rounded shadow-md"
       />
-      <Button onClick={onClick} variant="small">
+      <Button
+        onClick={() => {
+          setType('Expense');
+          onClick();
+        }}
+        variant="small"
+      >
         Add
       </Button>
     </div>
