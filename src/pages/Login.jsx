@@ -75,10 +75,18 @@ const Login = () => {
             className="p-3 w-96 rounded shadow-md mb-8"
           />
           <div className="flex gap-x-4">
-            <Button onClick={handleLogin} isDisabled={!username || !password}>
+            <Button
+              onClick={handleLogin}
+              isDisabled={!username || !password}
+              variant="large"
+            >
               Login
             </Button>
-            <Button onClick={handleRegister} isDisabled={isDisabled}>
+            <Button
+              onClick={handleRegister}
+              isDisabled={isDisabled}
+              variant="large"
+            >
               {isDisabled ? 'Registered' : 'Register'}
             </Button>
           </div>
