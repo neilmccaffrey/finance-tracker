@@ -13,12 +13,27 @@ const Home = () => {
 
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
 
-  //decode userid from token on mount
+  // get json web token on mount clear token from local storage if it is expired
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      const decodedToken = jwtDecode(token);
-      setUserId(parseInt(decodedToken.userId, 10)); //convert to int
+      try {
+        const decodedToken = jwtDecode(token);
+        const { exp, userId } = decodedToken;
+
+        // Check if token is expired
+        if (exp * 1000 < Date.now()) {
+          localStorage.removeItem('token'); // Remove expired token
+          setUserId(null); // Clear userId state
+          console.log('Token expired and removed');
+        } else {
+          setUserId(parseInt(userId, 10)); // Set userId if token is valid
+        }
+      } catch (error) {
+        console.error('Invalid token:', error);
+        localStorage.removeItem('token'); // Remove if decoding fails
+        setUserId(null);
+      }
     }
   }, []);
 
