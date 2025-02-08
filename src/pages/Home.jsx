@@ -5,11 +5,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import IncomeExpenseInput from '../components/IncomeExpenseInput';
 import { addTransaction } from '../api/transactions';
 import { jwtDecode } from 'jwt-decode';
+import TransactionList from '../components/TransactionList';
 
 const Home = () => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [userId, setUserId] = useState();
+  const [expenses, setExpenses] = useState('');
 
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
 
@@ -51,6 +53,15 @@ const Home = () => {
     if (userId) {
       addTransaction(name, amount, type, userId);
     }
+
+    // Add new item with an id (for deleting)
+    setExpenses((prevExpenses) => [
+      ...prevExpenses,
+      { id: Date.now(), name, amount },
+    ]);
+
+    setName('');
+    setAmount('');
   };
 
   return (
@@ -70,6 +81,7 @@ const Home = () => {
             name={name}
             amount={amount}
           />
+          <TransactionList data={expenses} />
         </div>
       </main>
     </>

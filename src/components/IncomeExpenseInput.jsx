@@ -10,7 +10,7 @@ const IncomeExpenseInput = ({ onClick, setName, setAmount, name, amount }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 dark:bg-gray-500 p-2 rounded shadow-md">
+    <div className="flex items-center gap-2 dark:bg-gray-500 p-2 mb-2 rounded shadow-md">
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
