@@ -21,7 +21,11 @@ const TransactionList = ({ data, onDelete, flag }) => {
       <div className="flex items-center justify-between w-72">
         <span>{flag}</span>
         <span>
-          Total: ${data.reduce((acc, curr) => acc + parseFloat(curr.amount), 0)}
+          Total: $
+          {data
+            .reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
+            .toFixed(2)}{' '}
+          {/* tofixed to ensure only 2 decimals */}
         </span>
         <button className="w-4" onClick={toggleList}>
           <FontAwesomeIcon icon={isOpen ? faChevronDown : faChevronRight} />
