@@ -34,12 +34,13 @@ const TransactionList = ({ data, onDelete, flag }) => {
 
       {isOpen && (
         <ul>
-          {data.map((item) => (
-            <li key={item.id}>
+          {data.map((item, index) => (
+            <li key={`${item.id}-${index}`}>
               <div className="flex w-72 my-1 justify-between pl-2 dark:bg-gray-300 rounded shadow-md">
                 <span>{item.name}</span>
                 <span>
-                  ${item.amount}
+                  ${parseFloat(item.amount).toFixed(2)}{' '}
+                  {/* tofixed to ensure only 2 decimals */}
                   <button onClick={() => onDelete(item.id)}>
                     <FontAwesomeIcon
                       icon={faTrashCan}
