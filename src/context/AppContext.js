@@ -21,6 +21,21 @@ export const AppProvider = ({ children }) => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  const addExpense = (expenseName, expenseAmount, id) => {
+    setExpenses((prevExpenses) => [
+      ...prevExpenses,
+      { id, name: expenseName, amount: expenseAmount },
+    ]);
+    console.log('Updated Expenses:'); // log here
+  };
+
+  const addIncome = (incomeName, incomeAmount, id) => {
+    setIncome((prevIncome) => [
+      ...prevIncome,
+      { id, name: incomeName, amount: incomeAmount },
+    ]);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken(null);
@@ -38,6 +53,8 @@ export const AppProvider = ({ children }) => {
         income,
         setIncome,
         handleLogout,
+        addExpense,
+        addIncome,
       }}
     >
       {children}

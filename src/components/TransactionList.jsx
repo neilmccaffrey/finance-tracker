@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-const TransactionList = ({ data, onDelete }) => {
+const TransactionList = ({ data, onDelete, flag }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleList = () => {
@@ -14,12 +14,12 @@ const TransactionList = ({ data, onDelete }) => {
   };
 
   if (!Array.isArray(data)) {
-    return <p>Expenses will appear here!</p>;
+    return <p>{flag} will appear here!</p>;
   }
   return (
     <div className="flex flex-col dark:bg-gray-500 p-2 rounded shadow-md">
       <div className="flex items-center justify-between w-72">
-        <span>Expenses</span>
+        <span>{flag}</span>
         <span>
           Total: ${data.reduce((acc, curr) => acc + parseFloat(curr.amount), 0)}
         </span>

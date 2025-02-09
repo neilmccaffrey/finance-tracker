@@ -8,8 +8,6 @@ export const addTransaction = async (name, amount, type, userId) => {
     userId: userId,
   };
 
-  console.log(transaction);
-
   const response = await fetch(`${API_URL}`, {
     method: 'POST',
     headers: {
@@ -37,6 +35,21 @@ export const fetchUserExpenses = async (userId) => {
     return data;
   } catch (error) {
     console.error('Error fetching expenses:', error);
+    return [];
+  }
+};
+
+//fetch income from DB
+export const fetchUserIncome = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/user/${userId}/income`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch income');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching income:', error);
     return [];
   }
 };

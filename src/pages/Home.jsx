@@ -1,24 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import IncomeExpenseInput from '../components/IncomeExpenseInput';
-import { addTransaction, fetchUserExpenses } from '../api/transactions';
+import {
+  addTransaction,
+  fetchUserExpenses,
+  fetchUserIncome,
+} from '../api/transactions';
 import { jwtDecode } from 'jwt-decode';
 import TransactionList from '../components/TransactionList';
+import { AppContext } from '../context/AppContext';
 
 const Home = () => {
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState('');
-  const [userId, setUserId] = useState();
-  const [expenses, setExpenses] = useState([]);
-  const [income, setIncome] = useState([]);
-
+  const [expenseName, setExpenseName] = useState('');
+  const [expenseAmount, setExpenseAmount] = useState('');
+  const [incomeName, setIncomeName] = useState('');
+  const [incomeAmount, setIncomeAmount] = useState('');
+  const [userId, setUserId] = useState('');
+  const {
+    income,
+    setIncome,
+    expenses,
+    setExpenses,
+    token,
+    addExpense,
+    addIncome,
+  } = useContext(AppContext);
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
 
   // get json web token on mount clear token from local storage if it is expired
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
@@ -37,6 +49,10 @@ const Home = () => {
             setExpenses(await fetchUserExpenses(parsedUserId));
           };
           getExpenses();
+          const getIncome = async () => {
+            setIncome(await fetchUserIncome(parsedUserId));
+          };
+          getIncome();
         }
       } catch (error) {
         console.error('Invalid token:', error);
@@ -57,18 +73,28 @@ const Home = () => {
 
   const handleAddExpense = () => {
     const type = 'Expense';
+    //if user is logged in add to DB
     if (userId) {
-      addTransaction(name, amount, type, userId);
+      addTransaction(expenseName, expenseAmount, type, userId);
     }
 
-    // Add new item with an id (for deleting)
-    setExpenses((prevExpenses) => [
-      ...prevExpenses,
-      { id: Date.now(), name, amount },
-    ]);
+    addExpense(expenseName, expenseAmount, userId); //update expense state in context
 
-    setName('');
-    setAmount('');
+    setExpenseName('');
+    setExpenseAmount('');
+  };
+
+  const handleAddIncome = () => {
+    const type = 'Income';
+    //if user is logged in add to DB
+    if (userId) {
+      addTransaction(incomeName, incomeAmount, type, userId);
+    }
+
+    addIncome(incomeName, incomeAmount, userId); //update income state in context
+
+    setIncomeName('');
+    setIncomeAmount('');
   };
 
   return (
@@ -80,15 +106,26 @@ const Home = () => {
           Finance Tracker - Login or Register to save!
         </span>
         <div className="flex flex-col items-center self-start">
+          <span>Monthly Income</span>
+          <IncomeExpenseInput
+            onClick={handleAddIncome}
+            name={incomeName}
+            setName={setIncomeName}
+            amount={incomeAmount}
+            setAmount={setIncomeAmount}
+          />
+          <TransactionList data={income} flag={'Income'} />
+        </div>
+        <div className="flex flex-col items-center self-start">
           <span>Monthly Expenses</span>
           <IncomeExpenseInput
             onClick={handleAddExpense}
-            setName={setName}
-            setAmount={setAmount}
-            name={name}
-            amount={amount}
+            name={expenseName}
+            setName={setExpenseName}
+            amount={expenseAmount}
+            setAmount={setExpenseAmount}
           />
-          <TransactionList data={expenses} />
+          <TransactionList data={expenses} flag={'Expenses'} />
         </div>
       </main>
     </>
