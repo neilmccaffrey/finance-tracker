@@ -23,7 +23,7 @@ const TransactionList = ({ data, onDelete }) => {
         <span>
           Total: ${data.reduce((acc, curr) => acc + parseFloat(curr.amount), 0)}
         </span>
-        <button onClick={toggleList}>
+        <button className="w-4" onClick={toggleList}>
           <FontAwesomeIcon icon={isOpen ? faChevronDown : faChevronRight} />
         </button>
       </div>

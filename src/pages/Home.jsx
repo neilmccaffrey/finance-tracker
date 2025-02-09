@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import IncomeExpenseInput from '../components/IncomeExpenseInput';
-import { addTransaction } from '../api/transactions';
+import { addTransaction, fetchUserExpenses } from '../api/transactions';
 import { jwtDecode } from 'jwt-decode';
 import TransactionList from '../components/TransactionList';
 
@@ -11,7 +11,8 @@ const Home = () => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [userId, setUserId] = useState();
-  const [expenses, setExpenses] = useState('');
+  const [expenses, setExpenses] = useState([]);
+  const [income, setIncome] = useState([]);
 
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
 
@@ -29,7 +30,13 @@ const Home = () => {
           setUserId(null); // Clear userId state
           console.log('Token expired and removed');
         } else {
-          setUserId(parseInt(userId, 10)); // Set userId if token is valid
+          const parsedUserId = parseInt(userId, 10);
+          setUserId(parsedUserId); // Set userId if token is valid
+          //if valid token fetch expenses/income
+          const getExpenses = async () => {
+            setExpenses(await fetchUserExpenses(parsedUserId));
+          };
+          getExpenses();
         }
       } catch (error) {
         console.error('Invalid token:', error);
@@ -37,7 +44,7 @@ const Home = () => {
         setUserId(null);
       }
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (localStorage.getItem('showLoginToast') === 'true') {

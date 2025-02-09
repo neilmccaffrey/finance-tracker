@@ -25,3 +25,18 @@ export const addTransaction = async (name, amount, type, userId) => {
     console.error('Failed to add transaction');
   }
 };
+
+//fetch expenses from DB
+export const fetchUserExpenses = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/user/${userId}/expenses`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch expenses');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching expenses:', error);
+    return [];
+  }
+};
