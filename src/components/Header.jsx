@@ -2,24 +2,11 @@ import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const Header = () => {
-  const [token, setToken] = useState(localStorage.getItem('token'));
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setToken(localStorage.getItem('token'));
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange); //clean up listener
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove JWT token
-    setToken(null); //set token to null
-  };
+  const { token, handleLogout } = useContext(AppContext);
 
   return (
     <header className="w-full fixed top-0 p-2 md:p-6">

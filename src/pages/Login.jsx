@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { registerUser, loginUser } from '../api/auth';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 const Login = () => {
+  const { setToken } = useContext(AppContext); // Access setToken from the context
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
@@ -42,6 +44,7 @@ const Login = () => {
       if (result.message === 'Login successful') {
         toast.success('You are now logged in!');
         localStorage.setItem('token', result.token); //store JWT token
+        setToken(result.token); // Update the token in the context
         localStorage.setItem('showLoginToast', 'true'); //Set a flag for login toast notification on home page
         navigate('/'); //if login is successful redirect user to homepage
       } else {
