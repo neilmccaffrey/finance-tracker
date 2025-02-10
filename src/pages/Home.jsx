@@ -12,6 +12,7 @@ import {
 import { jwtDecode } from 'jwt-decode';
 import TransactionList from '../components/TransactionList';
 import { AppContext } from '../context/AppContext';
+import BarChart from '../components/BarChart';
 
 const Home = () => {
   const [expenseName, setExpenseName] = useState('');
@@ -125,35 +126,42 @@ const Home = () => {
         ) : (
           <span className="text-lg font-bold">Finance Tracker</span>
         )}
-        <div className="flex flex-col items-center self-start">
-          <span>Monthly Income</span>
-          <IncomeExpenseInput
-            onClick={handleAddIncome}
-            name={incomeName}
-            setName={setIncomeName}
-            amount={incomeAmount}
-            setAmount={setIncomeAmount}
-          />
-          <TransactionList
-            data={income}
-            flag={'Income'}
-            onDelete={handleOnDelete}
-          />
-        </div>
-        <div className="flex flex-col items-center self-start">
-          <span>Monthly Expenses</span>
-          <IncomeExpenseInput
-            onClick={handleAddExpense}
-            name={expenseName}
-            setName={setExpenseName}
-            amount={expenseAmount}
-            setAmount={setExpenseAmount}
-          />
-          <TransactionList
-            data={expenses}
-            flag={'Expenses'}
-            onDelete={handleOnDelete}
-          />
+        <div className="flex w-full">
+          <div className="flex flex-col items-center self-start">
+            <div className="flex flex-col items-center self-start">
+              <span>Monthly Income</span>
+              <IncomeExpenseInput
+                onClick={handleAddIncome}
+                name={incomeName}
+                setName={setIncomeName}
+                amount={incomeAmount}
+                setAmount={setIncomeAmount}
+              />
+              <TransactionList
+                data={income}
+                flag={'Income'}
+                onDelete={handleOnDelete}
+              />
+            </div>
+            <div className="flex flex-col items-center self-start">
+              <span>Monthly Expenses</span>
+              <IncomeExpenseInput
+                onClick={handleAddExpense}
+                name={expenseName}
+                setName={setExpenseName}
+                amount={expenseAmount}
+                setAmount={setExpenseAmount}
+              />
+              <TransactionList
+                data={expenses}
+                flag={'Expenses'}
+                onDelete={handleOnDelete}
+              />
+            </div>
+          </div>
+          <div className="w-full h-72 ml-16">
+            <BarChart income={income} expenses={expenses} />
+          </div>
         </div>
       </main>
     </>
