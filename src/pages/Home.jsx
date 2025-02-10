@@ -26,6 +26,7 @@ const Home = () => {
     token,
     addExpense,
     addIncome,
+    setToken,
   } = useContext(AppContext);
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
 
@@ -40,7 +41,7 @@ const Home = () => {
         if (exp * 1000 < Date.now()) {
           localStorage.removeItem('token'); // Remove expired token
           setUserId(null); // Clear userId state
-          console.log('Token expired and removed');
+          setToken(null); //clear token
         } else {
           const parsedUserId = parseInt(userId, 10);
           setUserId(parsedUserId); // Set userId if token is valid
@@ -102,9 +103,13 @@ const Home = () => {
       <Header />
       <ToastContainer position="top-center" theme={theme} />
       <main className="flex flex-col items-center pt-20 mx-auto p-4">
-        <span className="text-lg font-bold">
-          Finance Tracker - Login or Register to save!
-        </span>
+        {!token ? (
+          <span className="text-lg font-bold">
+            Finance Tracker - Login or Register to save!
+          </span>
+        ) : (
+          <span className="text-lg font-bold">Finance Tracker</span>
+        )}
         <div className="flex flex-col items-center self-start">
           <span>Monthly Income</span>
           <IncomeExpenseInput
