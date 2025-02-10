@@ -53,3 +53,25 @@ export const fetchUserIncome = async (userId) => {
     return [];
   }
 };
+
+//delete item
+export const deleteItem = async (itemId) => {
+  try {
+    const response = await fetch(`${API_URL}/${itemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      // Successfully deleted item
+      console.log('Item deleted successfully');
+    } else {
+      // Handle error
+      console.error('Error deleting item');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};

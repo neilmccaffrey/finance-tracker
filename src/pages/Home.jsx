@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import IncomeExpenseInput from '../components/IncomeExpenseInput';
 import {
   addTransaction,
+  deleteItem,
   fetchUserExpenses,
   fetchUserIncome,
 } from '../api/transactions';
@@ -98,6 +99,20 @@ const Home = () => {
     setIncomeAmount('');
   };
 
+  const handleOnDelete = (itemId, flag) => {
+    //delete item
+    deleteItem(itemId);
+    //update correct list based on flag
+    if (flag === 'Income') {
+      const updatedIncome = income.filter((item) => item.id !== itemId);
+      setIncome(updatedIncome);
+    }
+    if (flag === 'Expenses') {
+      const updatedExpenses = expenses.filter((item) => item.id !== itemId);
+      setExpenses(updatedExpenses);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -119,7 +134,11 @@ const Home = () => {
             amount={incomeAmount}
             setAmount={setIncomeAmount}
           />
-          <TransactionList data={income} flag={'Income'} />
+          <TransactionList
+            data={income}
+            flag={'Income'}
+            onDelete={handleOnDelete}
+          />
         </div>
         <div className="flex flex-col items-center self-start">
           <span>Monthly Expenses</span>
@@ -130,7 +149,11 @@ const Home = () => {
             amount={expenseAmount}
             setAmount={setExpenseAmount}
           />
-          <TransactionList data={expenses} flag={'Expenses'} />
+          <TransactionList
+            data={expenses}
+            flag={'Expenses'}
+            onDelete={handleOnDelete}
+          />
         </div>
       </main>
     </>

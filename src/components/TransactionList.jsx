@@ -39,9 +39,10 @@ const TransactionList = ({ data, onDelete, flag }) => {
               <div className="flex w-72 my-1 justify-between pl-2 dark:bg-gray-300 rounded shadow-md">
                 <span>{item.name}</span>
                 <span>
-                  ${parseFloat(item.amount).toFixed(2)}{' '}
-                  {/* tofixed to ensure only 2 decimals */}
-                  <button onClick={() => onDelete(item.id)}>
+                  {/* tofixed to ensure only 2 decimals */}$
+                  {parseFloat(item.amount).toFixed(2)}
+                  {/* send item id and flag to delete item and update list dynamically */}
+                  <button onClick={() => onDelete(item.id, flag)}>
                     <FontAwesomeIcon
                       icon={faTrashCan}
                       className="px-2 text-red-500 hover:text-red-700"
