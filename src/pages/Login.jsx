@@ -60,14 +60,14 @@ const Login = () => {
       <Header />
       <ToastContainer position="top-center" theme={theme} />
       <div className="flex flex-col items-center justify-center h-screen">
-        <div className="p-16 border shadow-md rounded flex flex-col items-center">
+        <div className="p-8 md:p-16 border shadow-md rounded flex flex-col items-center">
           <span className="text-2xl font-bold mb-4">Login or Register</span>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             autoComplete="username"
             placeholder="Username"
-            className="p-3 w-96 rounded shadow-md mb-2"
+            className="p-3 w-64 md:w-96 rounded shadow-md mb-2"
           />
           <input
             type="password"
@@ -75,7 +75,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
             placeholder="Password"
-            className="p-3 w-96 rounded shadow-md mb-8"
+            className="p-3 w-64 md:w-96 rounded shadow-md mb-8"
           />
           <div className="flex gap-x-4">
             <Button

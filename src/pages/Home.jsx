@@ -118,15 +118,15 @@ const Home = () => {
     <>
       <Header />
       <ToastContainer position="top-center" theme={theme} />
-      <main className="flex flex-col items-center pt-20 mx-auto p-4">
+      <main className="flex flex-col items-center mt-10 md:mt-20 mx-auto p-4">
         {!token ? (
-          <span className="text-lg font-bold">
+          <span className="md:text-lg font-bold">
             Finance Tracker - Login or Register to save!
           </span>
         ) : (
           <span className="text-lg font-bold">Finance Tracker</span>
         )}
-        <div className="flex w-full">
+        <div className="flex w-full flex-col md:flex-row">
           <div className="flex flex-col items-center self-start">
             <div className="flex flex-col items-center self-start">
               <span>Monthly Income</span>
@@ -159,7 +159,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="w-full h-72 ml-16">
+          <div className="w-full h-72 md:ml-16">
             <BarChart income={income} expenses={expenses} />
           </div>
         </div>
