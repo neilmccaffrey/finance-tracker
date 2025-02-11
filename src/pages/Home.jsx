@@ -31,6 +31,10 @@ const Home = () => {
     setToken,
   } = useContext(AppContext);
   const theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; // Get current theme for toastcontainer
+  const monthlyTotal = (
+    income.reduce((acc, curr) => acc + parseFloat(curr.amount), 0) -
+    expenses.reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
+  ).toFixed(2);
 
   // get json web token on mount clear token from local storage if it is expired
   useEffect(() => {
@@ -157,6 +161,21 @@ const Home = () => {
                 flag={'Expenses'}
                 onDelete={handleOnDelete}
               />
+            </div>
+            <div className="flex self-end dark:bg-gray-500 p-2 rounded shadow-md mt-2">
+              Monthly total:
+              <span
+                className={`ml-2
+                  ${
+                    monthlyTotal > 0
+                      ? 'text-green-500'
+                      : monthlyTotal < 0
+                        ? 'text-red-500'
+                        : 'text-gray-500'
+                  }`}
+              >
+                {monthlyTotal}
+              </span>
             </div>
           </div>
           <div className="w-full h-72 md:ml-16">

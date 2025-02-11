@@ -24,7 +24,7 @@ const TransactionList = ({ data, onDelete, flag }) => {
           Total: $
           {data
             .reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
-            .toFixed(2)}{' '}
+            .toFixed(2)}
           {/* tofixed to ensure only 2 decimals */}
         </span>
         <button className="w-4" onClick={toggleList}>
