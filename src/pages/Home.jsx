@@ -106,12 +106,16 @@ const Home = () => {
 
   const handleOnDelete = (itemId, flag) => {
     //delete item
-    deleteItem(itemId);
+    if (userId) {
+      deleteItem(itemId);
+    }
+    console.log('Before delete: ', income);
     //update correct list based on flag
     if (flag === 'Income') {
       const updatedIncome = income.filter((item) => item.id !== itemId);
       setIncome(updatedIncome);
     }
+    console.log('After delete: ', income);
     if (flag === 'Expenses') {
       const updatedExpenses = expenses.filter((item) => item.id !== itemId);
       setExpenses(updatedExpenses);

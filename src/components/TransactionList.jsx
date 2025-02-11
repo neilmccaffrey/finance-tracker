@@ -13,9 +13,6 @@ const TransactionList = ({ data, onDelete, flag }) => {
     setIsOpen(!isOpen);
   };
 
-  if (!Array.isArray(data)) {
-    return <p>{flag} will appear here!</p>;
-  }
   return (
     <div className="flex flex-col dark:bg-gray-500 p-2 rounded shadow-md">
       <div className="flex items-center justify-between w-72">
