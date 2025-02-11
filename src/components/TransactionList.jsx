@@ -28,27 +28,28 @@ const TransactionList = ({ data, onDelete, flag }) => {
           <FontAwesomeIcon icon={isOpen ? faChevronDown : faChevronRight} />
         </button>
       </div>
-
       {isOpen && (
         <ul>
-          {data.map((item, index) => (
-            <li key={`${item.id}-${index}`}>
-              <div className="flex w-72 my-1 justify-between pl-2 dark:bg-gray-300 rounded shadow-md">
-                <span>{item.name}</span>
-                <span>
-                  {/* tofixed to ensure only 2 decimals */}$
-                  {parseFloat(item.amount).toFixed(2)}
-                  {/* send item id and flag to delete item and update list dynamically */}
-                  <button onClick={() => onDelete(item.id, flag)}>
-                    <FontAwesomeIcon
-                      icon={faTrashCan}
-                      className="px-2 text-red-500 hover:text-red-700"
-                    />
-                  </button>
-                </span>
-              </div>
-            </li>
-          ))}
+          {data.map((item) => {
+            return (
+              <li key={item.id}>
+                <div className="flex w-72 my-1 justify-between pl-2 dark:bg-gray-300 rounded shadow-md">
+                  <span>{item.name}</span>
+                  <span>
+                    {/* tofixed to ensure only 2 decimals */}$
+                    {parseFloat(item.amount).toFixed(2)}
+                    {/* send item id and flag to delete item and update list dynamically */}
+                    <button onClick={() => onDelete(item.id, flag)}>
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        className="px-2 text-red-500 hover:text-red-700"
+                      />
+                    </button>
+                  </span>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

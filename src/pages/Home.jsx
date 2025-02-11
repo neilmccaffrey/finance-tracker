@@ -13,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 import TransactionList from '../components/TransactionList';
 import { AppContext } from '../context/AppContext';
 import BarChart from '../components/BarChart';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = () => {
   const [expenseName, setExpenseName] = useState('');
@@ -80,12 +81,13 @@ const Home = () => {
 
   const handleAddExpense = () => {
     const type = 'Expense';
+    const itemId = uuidv4();
     //if user is logged in add to DB
     if (userId) {
-      addTransaction(expenseName, expenseAmount, type, userId);
+      addTransaction(expenseName, expenseAmount, type, userId, itemId);
     }
 
-    addExpense(expenseName, expenseAmount, userId); //update expense state in context
+    addExpense(expenseName, expenseAmount, itemId); //update expense state in context
 
     setExpenseName('');
     setExpenseAmount('');
@@ -93,12 +95,13 @@ const Home = () => {
 
   const handleAddIncome = () => {
     const type = 'Income';
+    const itemId = uuidv4();
     //if user is logged in add to DB
     if (userId) {
-      addTransaction(incomeName, incomeAmount, type, userId);
+      addTransaction(incomeName, incomeAmount, type, userId, itemId);
     }
 
-    addIncome(incomeName, incomeAmount, userId); //update income state in context
+    addIncome(incomeName, incomeAmount, itemId); //update income state in context
 
     setIncomeName('');
     setIncomeAmount('');
@@ -109,13 +112,11 @@ const Home = () => {
     if (userId) {
       deleteItem(itemId);
     }
-    console.log('Before delete: ', income);
     //update correct list based on flag
     if (flag === 'Income') {
       const updatedIncome = income.filter((item) => item.id !== itemId);
       setIncome(updatedIncome);
     }
-    console.log('After delete: ', income);
     if (flag === 'Expenses') {
       const updatedExpenses = expenses.filter((item) => item.id !== itemId);
       setExpenses(updatedExpenses);

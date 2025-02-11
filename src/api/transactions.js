@@ -1,7 +1,8 @@
 const API_URL = 'http://localhost:5151/api/transactions'; // Adjust for production
 
-export const addTransaction = async (name, amount, type, userId) => {
+export const addTransaction = async (name, amount, type, userId, itemId) => {
   const transaction = {
+    id: itemId,
     name: name,
     amount: parseFloat(amount), // Convert amount to float
     type: type,
