@@ -14,6 +14,7 @@ import TransactionList from '../components/TransactionList';
 import { AppContext } from '../context/AppContext';
 import BarChart from '../components/BarChart';
 import { v4 as uuidv4 } from 'uuid';
+import FinancialNews from '../components/FinancialNews';
 
 const Home = () => {
   const [expenseName, setExpenseName] = useState('');
@@ -135,7 +136,7 @@ const Home = () => {
         ) : (
           <span className="text-lg font-bold">Finance Tracker</span>
         )}
-        <div className="flex w-full flex-col md:flex-row">
+        <div className="flex w-full flex-col lg:flex-row">
           <div className="flex flex-col items-center self-start">
             <div className="flex flex-col items-center self-start">
               <span>Monthly Income</span>
@@ -183,8 +184,12 @@ const Home = () => {
               </span>
             </div>
           </div>
-          <div className="w-full h-72 md:ml-16">
+          <div className="w-full h-48 md:h-72 md:ml-16">
             <BarChart income={income} expenses={expenses} />
+          </div>
+          <div className="flex flex-col items-center mr-10">
+            <span className="text-xl font-bold">Top Financial News</span>
+            <FinancialNews />
           </div>
         </div>
       </main>
