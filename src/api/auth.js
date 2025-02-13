@@ -12,7 +12,7 @@ export const registerUser = async (username, password) => {
 };
 
 export const loginUser = async (username, password) => {
-  const response = await fetch(`${API_URL}/login`, {
+  const response = await fetch(`${API_URL}/api/users/login`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
