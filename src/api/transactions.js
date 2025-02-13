@@ -2,11 +2,11 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export const addTransaction = async (name, amount, type, userId, itemId) => {
   const transaction = {
-    id: itemId,
-    name: name,
-    amount: parseFloat(amount), // Convert amount to float
-    type: type,
-    userId: userId,
+    Id: itemId,
+    Name: name,
+    Amount: parseFloat(amount), // Convert amount to float
+    Type: type,
+    UserId: userId,
   };
 
   const response = await fetch(`${API_URL}/api/transactions`, {
@@ -30,7 +30,10 @@ export const addTransaction = async (name, amount, type, userId, itemId) => {
 export const fetchUserExpenses = async (userId) => {
   try {
     const response = await fetch(
-      `${API_URL}/api/transactions/user/${userId}/expenses`
+      `${API_URL}/api/transactions/user/${userId}/expenses`,
+      {
+        credentials: 'include',
+      }
     );
     if (!response.ok) {
       throw new Error('Failed to fetch expenses');
@@ -47,7 +50,10 @@ export const fetchUserExpenses = async (userId) => {
 export const fetchUserIncome = async (userId) => {
   try {
     const response = await fetch(
-      `${API_URL}/api/transactions/user/${userId}/income`
+      `${API_URL}/api/transactions/user/${userId}/income`,
+      {
+        credentials: 'include',
+      }
     );
     if (!response.ok) {
       throw new Error('Failed to fetch income');
