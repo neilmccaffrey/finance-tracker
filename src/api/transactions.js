@@ -11,6 +11,7 @@ export const addTransaction = async (name, amount, type, userId, itemId) => {
 
   const response = await fetch(`${API_URL}/api/transactions`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -64,6 +65,7 @@ export const deleteItem = async (itemId) => {
   try {
     const response = await fetch(`${API_URL}/api/transactions/${itemId}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
