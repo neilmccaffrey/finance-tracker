@@ -2,11 +2,11 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export const addTransaction = async (name, amount, type, userId, itemId) => {
   const transaction = {
-    Id: itemId,
-    Name: name,
-    Amount: parseFloat(amount), // Convert amount to float
-    Type: type,
-    UserId: userId,
+    id: itemId,
+    name: name,
+    amount: parseFloat(amount), // Convert amount to float
+    type: type,
+    userId: userId,
   };
 
   const response = await fetch(`${API_URL}/api/transactions`, {
