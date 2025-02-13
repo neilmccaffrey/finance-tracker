@@ -16,7 +16,6 @@ const FinancialNews = () => {
 
     getNews();
   }, []);
-  if (!articles.length) return null; // If no articles, return nothing
   return (
     <div className="flex flex-col dark:bg-gray-500 p-2 rounded shadow-md mt-2">
       {articles.map((article) => (

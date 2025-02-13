@@ -10,7 +10,6 @@ export const fetchNews = async () => {
     return data;
   } catch (error) {
     console.error('Error fetching news:', error);
+    return []; // Return an empty array if there's an error
   }
 };
-
-fetchNews();
