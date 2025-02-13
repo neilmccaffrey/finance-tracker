@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5151/api/transactions'; // Adjust for production
+const API_URL = process.env.API_URL;
 
 export const addTransaction = async (name, amount, type, userId, itemId) => {
   const transaction = {
@@ -9,7 +9,7 @@ export const addTransaction = async (name, amount, type, userId, itemId) => {
     userId: userId,
   };
 
-  const response = await fetch(`${API_URL}`, {
+  const response = await fetch(`${API_URL}/api/transactions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +28,9 @@ export const addTransaction = async (name, amount, type, userId, itemId) => {
 //fetch expenses from DB
 export const fetchUserExpenses = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/user/${userId}/expenses`);
+    const response = await fetch(
+      `${API_URL}/api/transactions/user/${userId}/expenses`
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch expenses');
     }
@@ -43,7 +45,9 @@ export const fetchUserExpenses = async (userId) => {
 //fetch income from DB
 export const fetchUserIncome = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/user/${userId}/income`);
+    const response = await fetch(
+      `${API_URL}/api/transactions/user/${userId}/income`
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch income');
     }
@@ -58,7 +62,7 @@ export const fetchUserIncome = async (userId) => {
 //delete item
 export const deleteItem = async (itemId) => {
   try {
-    const response = await fetch(`${API_URL}/${itemId}`, {
+    const response = await fetch(`${API_URL}/api/transactions/${itemId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

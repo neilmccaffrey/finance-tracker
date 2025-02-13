@@ -1,8 +1,8 @@
-const API_URL = 'http://localhost:5151/api/news';
+const API_URL = process.env.API_URL;
 
 export const fetchNews = async () => {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_URL}/api/news`);
     if (!response.ok) {
       throw new Error('Failed to fetch news');
     }
