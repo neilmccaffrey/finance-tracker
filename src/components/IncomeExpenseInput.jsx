@@ -21,13 +21,14 @@ const IncomeExpenseInput = ({ onClick, setName, setAmount, name, amount }) => {
         value={amount}
         onChange={handleAmountChange}
         placeholder="$0.00"
-        className="pl-2 w-16 dark:bg-gray-300 rounded shadow-md"
+        className="pl-2 w-32 dark:bg-gray-300 rounded shadow-md"
       />
       <Button
         onClick={() => {
           onClick();
         }}
         variant="small"
+        isDisabled={!name || !amount}
       >
         Add
       </Button>

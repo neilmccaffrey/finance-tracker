@@ -136,9 +136,9 @@ const Home = () => {
         ) : (
           <span className="text-lg font-bold">Finance Tracker</span>
         )}
-        <div className="flex w-full flex-col lg:flex-row">
-          <div className="flex flex-col items-center self-start">
-            <div className="flex flex-col items-center self-start">
+        <div className="flex w-full flex-col items-center xl:flex-row xl:items-start">
+          <div className="flex flex-col items-center ">
+            <div className="flex flex-col items-center ">
               <span>Monthly Income</span>
               <IncomeExpenseInput
                 onClick={handleAddIncome}
@@ -153,7 +153,7 @@ const Home = () => {
                 onDelete={handleOnDelete}
               />
             </div>
-            <div className="flex flex-col items-center self-start">
+            <div className="flex flex-col items-center">
               <span>Monthly Expenses</span>
               <IncomeExpenseInput
                 onClick={handleAddExpense}
@@ -177,17 +177,17 @@ const Home = () => {
                       ? 'text-green-500'
                       : monthlyTotal < 0
                         ? 'text-red-500'
-                        : 'text-gray-500'
+                        : 'text-primary'
                   }`}
               >
                 {monthlyTotal}
               </span>
             </div>
           </div>
-          <div className="w-full h-48 md:h-72 md:ml-16">
+          <div className="xl:w-full h-48 md:h-72 md:ml-16">
             <BarChart income={income} expenses={expenses} />
           </div>
-          <div className="flex flex-col items-center mr-10">
+          <div className="flex flex-col items-center w-full">
             <span className="text-xl font-bold">Top Financial News</span>
             <FinancialNews />
           </div>

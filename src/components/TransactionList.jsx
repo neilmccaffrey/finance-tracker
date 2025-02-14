@@ -14,8 +14,8 @@ const TransactionList = ({ data, onDelete, flag }) => {
   };
 
   return (
-    <div className="flex flex-col dark:bg-gray-500 p-2 rounded shadow-md">
-      <div className="flex items-center justify-between w-72">
+    <div className="flex flex-col dark:bg-gray-500 p-2 rounded shadow-md w-full">
+      <div className="flex items-center justify-between">
         <span>{flag}</span>
         <span>
           Total: $
