@@ -27,6 +27,7 @@ const Login = () => {
       if (result.message === 'User registered successfully') {
         toast.success('Registration successful! 🎉');
         setIsDisabled(true); // Disable button on success
+        handleLogin(); //automatically log user in
       } else if (result === 'Username already exists') {
         toast.error('User already exists! Try a different username.');
       } else {
